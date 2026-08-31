@@ -73,6 +73,22 @@ window.addEventListener('resize', updateGallery);
 window.addEventListener('load', updateGallery);
 setTimeout(updateGallery, 50);
 
+let touchStartX = 0;
+let touchEndX = 0;
+const galleryStage = document.querySelector('.gallery-stage');
+
+galleryStage?.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+
+galleryStage?.addEventListener('touchend', (event) => {
+  touchEndX = event.changedTouches[0].screenX;
+  const distance = touchStartX - touchEndX;
+  if (Math.abs(distance) > 40) {
+    moveGallery(distance > 0 ? 1 : -1);
+  }
+}, { passive: true });
+
 const aboutImages = Array.from(document.querySelectorAll('.about-image'));
 let aboutIndex = 0;
 

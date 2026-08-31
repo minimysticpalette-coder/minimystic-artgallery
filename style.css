@@ -32,6 +32,12 @@ body.dark-mode {
   --forest: #9ad4c5;
   --forest-deep: #d8f0ea;
   --cream: #e8dfd6;
+  background-color: #1c2624;
+  background-image: url("images/water-mark-dark-mode.png");
+  background-repeat: repeat-y;
+  background-position: top center;
+  background-size: 100% auto;
+  background-attachment: fixed;
 }
 
 * { box-sizing: border-box; }
@@ -39,7 +45,12 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
+  background-color: #f8f3ea;
+  background-image: url("images/water-mark-background.png");
+  background-repeat: repeat-y;
+  background-position: top center;
+  background-size: 100% auto;
+  background-attachment: fixed;
   color: var(--ink);
   line-height: 1.6;
   transition: background 0.25s ease, color 0.25s ease;
@@ -80,6 +91,15 @@ body.dark-mode .header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+body.dark-mode .logo {
+  background: var(--cream);
+  border-color: var(--line);
+  box-shadow: 0 6px 18px rgba(35, 45, 42, 0.08);
+}
+body.dark-mode .logo img,
+body.dark-mode footer img {
+  content: url("images/logo.png");
 }
 .nav {
   display: flex;
@@ -661,6 +681,7 @@ footer img {
   position: absolute;
   top: 0.9rem;
   right: 0.9rem;
+  z-index: 10;
   width: 42px;
   height: 42px;
   display: inline-flex;
@@ -675,6 +696,19 @@ footer img {
 }
 
 @media (max-width: 1024px) {
+  .header {
+    flex-wrap: wrap;
+  }
+  .logo {
+    width: 52px;
+    height: 52px;
+  }
+  .nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
   .card { flex-basis: calc((100% - 1.4rem) / 2); }
   .hero, .about, .contact { grid-template-columns: 1fr; }
   .heading { align-items: flex-start; flex-direction: column; }
@@ -702,9 +736,35 @@ footer img {
   .actions { flex-direction: column; align-items: flex-start; }
   .card { flex-basis: 100%; }
   .gallery-carousel { grid-template-columns: 1fr; }
-  .gallery-carousel .carousel-btn { display: none; }
+  .gallery-stage {
+    touch-action: pan-y;
+    overflow: hidden;
+  }
+  .gallery-carousel .carousel-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    margin: 0 auto;
+  }
   .process-grid { grid-template-columns: 1fr; }
-  .lightbox > div { grid-template-columns: 1fr; }
+  .lightbox {
+    padding: 1rem;
+  }
+  .lightbox > div {
+    grid-template-columns: 1fr;
+    width: min(100%, 90vw);
+    padding-top: 3.25rem;
+  }
   .lightbox img { height: 48vh; }
+  .close {
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.7rem;
+  }
 }
 
