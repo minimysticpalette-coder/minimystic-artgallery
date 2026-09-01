@@ -1,6 +1,8 @@
 const menu = document.querySelector('.menu');
 const nav = document.querySelector('.nav');
 const themeToggle = document.querySelector('.theme-toggle');
+const social = document.querySelector('.social');
+const socialToggle = document.querySelector('.social-toggle');
 
 if (menu && nav) {
   menu.addEventListener('click', () => {
@@ -9,10 +11,24 @@ if (menu && nav) {
   });
 }
 
+if (social && socialToggle) {
+  socialToggle.addEventListener('click', () => {
+    const isOpen = social.classList.toggle('open');
+    socialToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
+
 document.querySelectorAll('.nav a').forEach((link) => {
   link.addEventListener('click', () => {
     if (nav) nav.classList.remove('open');
     if (menu) menu.setAttribute('aria-expanded', 'false');
+  });
+});
+
+document.querySelectorAll('.social a').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (social) social.classList.remove('open');
+    if (socialToggle) socialToggle.setAttribute('aria-expanded', 'false');
   });
 });
 
