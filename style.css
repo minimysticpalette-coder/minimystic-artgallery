@@ -633,8 +633,17 @@ body.dark-mode .details {
   font-size: 1.05rem;
 }
 .details a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+.details svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
 }
 .details span {
   color: var(--muted);
