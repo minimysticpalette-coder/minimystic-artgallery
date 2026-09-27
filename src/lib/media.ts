@@ -8,6 +8,12 @@ export interface CloudinaryImageOptions {
   width: number;
 }
 
+export interface CloudinaryVideoAsset {
+  publicId: string;
+  version: string;
+  format: string;
+}
+
 const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'oleopm7s';
 
 export const cloudinaryBrandAssets = {
@@ -36,5 +42,24 @@ export function getCloudinaryImageSrcSet(asset: CloudinaryAsset, widths: number[
   return Array.from(new Set(widths))
     .sort((left, right) => left - right)
     .map((width) => `${getCloudinaryImageUrl(asset, { width })} ${width}w`)
+    .join(', ');
+}
+
+export function getCloudinaryVideoUrl(asset: CloudinaryVideoAsset) {
+  return `https://res.cloudinary.com/${cloudName}/video/upload/f_mp4,vc_h264,ac_aac,q_auto/v${asset.version}/${asset.publicId}.mp4`;
+}
+
+export function getCloudinaryOriginalVideoUrl(asset: CloudinaryVideoAsset) {
+  return `https://res.cloudinary.com/${cloudName}/video/upload/v${asset.version}/${asset.publicId}.${asset.format}`;
+}
+
+export function getCloudinaryVideoPosterUrl(asset: CloudinaryVideoAsset, width: number) {
+  return `https://res.cloudinary.com/${cloudName}/video/upload/so_0,f_jpg,q_auto,c_limit,w_${width}/v${asset.version}/${asset.publicId}.jpg`;
+}
+
+export function getCloudinaryVideoPosterSrcSet(asset: CloudinaryVideoAsset, widths: number[]) {
+  return Array.from(new Set(widths))
+    .sort((left, right) => left - right)
+    .map((width) => `${getCloudinaryVideoPosterUrl(asset, width)} ${width}w`)
     .join(', ');
 }

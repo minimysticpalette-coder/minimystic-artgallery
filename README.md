@@ -28,18 +28,23 @@ Requires Node.js 20 or newer.
 
 ## Add artwork
 
-Upload the image to Cloudinary, then add one `Artwork` entry in `src/data/artworks.ts` with:
+Upload each view to Cloudinary, then add an `ArtworkImage` entry to `uploadedImages` in `src/data/artworks.ts` with:
 
-- A unique `id` and URL-safe `slug`
-- The approved title and any supplied category/description
 - `publicId`, `version`, and original `format` from the Cloudinary delivery URL
 - Accurate alt text
+- `isPrimary: true` on the image to use as the artwork's carousel cover
+
+Images whose public IDs share a stem before the final underscore-number are grouped as one artwork. For example, `GANESHA_1` and `GANESHA_2` become one Ganesha entry. The explicitly flagged image is the carousel cover; if no image is flagged, the lowest-numbered variant is used. The modal opens on that primary image and lets visitors move through the remaining numbered views.
 
 The site builds optimized responsive URLs with `f_auto`, `q_auto`, `c_limit`, and width transformations. Do not paste complete delivery URLs into page components. Images without titles, categories, or descriptions should not be given invented metadata.
 
 Currently the gallery includes the ten uploaded artworks. Add the remaining six only after their Cloudinary assets and metadata are ready.
 
 Brand assets are defined beside the media helpers in `src/lib/media.ts`; update those IDs there when replacing a logo or watermark.
+
+The carousel autoplay duration is set by `carouselIntervalMs` in `src/config/site.ts`, in milliseconds. Its current value is `5000`.
+
+The Ganesha hero video is listed with the artwork data. The page loads only its Cloudinary-generated poster initially; the H.264/AAC MP4 and original MOV fallback are attached after the visitor activates the play button. The browser-tab palette icon is `src/app/icon.svg`.
 
 ## Checks and deployment
 
