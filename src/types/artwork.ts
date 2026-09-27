@@ -1,5 +1,7 @@
 export interface ArtworkImage {
-  src: string;
+  publicId: string;
+  version: string;
+  format: string;
   alt: string;
   width?: number;
   height?: number;
@@ -15,8 +17,8 @@ export interface Artwork {
   id: string;
   slug: string;
   title: string;
-  category: string;
-  description: string;
+  category?: string;
+  description?: string;
   images: ArtworkImage[];
   videos?: ArtworkVideo[];
   availableSizes?: string[];

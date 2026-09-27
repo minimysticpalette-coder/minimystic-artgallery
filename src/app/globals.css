@@ -33,7 +33,7 @@ body.dark-mode {
   --forest-deep: #d8f0ea;
   --cream: #e8dfd6;
   background-color: #1c2624;
-  background-image: url("/images/water-mark-dark-mode.png");
+  background-image: var(--watermark-dark);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -46,7 +46,7 @@ body {
   margin: 0;
   font-family: var(--font-sans), sans-serif;
   background-color: #f8f3ea;
-  background-image: url("/images/water-mark-background.png");
+  background-image: var(--watermark-light);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;

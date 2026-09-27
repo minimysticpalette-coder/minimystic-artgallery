@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import { DM_Sans, Cormorant_Garamond, Oooh_Baby } from 'next/font/google';
+import { cloudinaryBrandAssets, getCloudinaryImageUrl } from '@/lib/media';
 
 const dmSans = DM_Sans({
   variable: '--font-sans',
@@ -44,10 +46,15 @@ export const metadata: Metadata = {
   },
 };
 
+const watermarkStyle = {
+  '--watermark-light': `url("${getCloudinaryImageUrl(cloudinaryBrandAssets.watermarkLight, { width: 1920 })}")`,
+  '--watermark-dark': `url("${getCloudinaryImageUrl(cloudinaryBrandAssets.watermarkDark, { width: 1920 })}")`,
+} as CSSProperties;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${dmSans.variable} ${cormorant.variable} ${ooohBaby.variable}`}>
+      <body className={`${dmSans.variable} ${cormorant.variable} ${ooohBaby.variable}`} style={watermarkStyle}>
         {children}
       </body>
     </html>

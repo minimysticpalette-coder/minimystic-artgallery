@@ -1,48 +1,50 @@
 # Mini Mystic Palette
 
-A static artist portfolio migrated to Next.js + TypeScript for maintainability, Cloudinary-ready media handling, and GitHub Pages deployment.
-
-## Tech stack
-- Next.js
-- TypeScript
-- React
-- ESLint
-- Prettier
-- GitHub Pages static export
-- Cloudinary-ready media configuration
-
-## Project structure
-- src/app — page entry points and app shell
-- src/components — reusable UI and gallery components
-- src/data — artwork data source
-- src/config — site configuration
-- src/lib — reusable media helpers
-- src/types — shared TypeScript interfaces
+A single-page artist portfolio built with Next.js and TypeScript, statically exported for GitHub Pages, with artwork and brand images delivered through Cloudinary.
 
 ## Local development
-1. Install dependencies: `npm install`
-2. Start the app: `npm run dev`
-3. View the site at `http://localhost:3000`
+
+Requires Node.js 20 or newer.
+
+1. Copy `.env.example` to `.env.local` if you need to override the public configuration.
+2. Install dependencies with `npm install`.
+3. Start the development server with `npm run dev` or `./run.sh` from Git Bash.
+4. Open `http://localhost:3000`.
+
+## Project structure
+
+- `src/app` — page entry points, metadata, and global styles
+- `src/components` — reusable presentation components
+- `src/data/artworks.ts` — central artwork list
+- `src/config` — site configuration
+- `src/lib/media.ts` — Cloudinary URL generation and shared brand asset IDs
+- `src/types` — shared TypeScript models
 
 ## Environment variables
-Create a `.env.local` file from `.env.example` and fill in values when ready.
 
-## Build
-- `npm run build`
+`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` is the public Cloudinary cloud name used to form delivery URLs. It is not an API secret. The current value is `oleopm7s`. Never add the Cloudinary API secret to this static frontend.
 
-## Lint
-- `npm run lint`
+`NEXT_PUBLIC_BASE_PATH` is empty for local development. The GitHub Pages workflow sets it to `/minimystic-artgallery` for the repository site.
 
-## Format
-- `npm run format`
+## Add artwork
 
-## Deployment
-This app is configured for static export and GitHub Pages.
+Upload the image to Cloudinary, then add one `Artwork` entry in `src/data/artworks.ts` with:
 
-GitHub Actions deployment can be added by publishing the generated static output to the Pages branch or using GitHub Pages Actions.
+- A unique `id` and URL-safe `slug`
+- The approved title and any supplied category/description
+- `publicId`, `version`, and original `format` from the Cloudinary delivery URL
+- Accurate alt text
 
-## Adding artwork
-Update `src/data/artworks.ts` with the artwork object. Add the current image path or placeholder and later replace it with Cloudinary public IDs.
+The site builds optimized responsive URLs with `f_auto`, `q_auto`, `c_limit`, and width transformations. Do not paste complete delivery URLs into page components. Images without titles, categories, or descriptions should not be given invented metadata.
 
-## Cloudinary
-Cloudinary is prepared as the media delivery layer, but real values should be added to environment variables after setup.
+Currently the gallery includes the ten uploaded artworks. Add the remaining six only after their Cloudinary assets and metadata are ready.
+
+Brand assets are defined beside the media helpers in `src/lib/media.ts`; update those IDs there when replacing a logo or watermark.
+
+## Checks and deployment
+
+- `npm run lint` — lint the application
+- `npm run build` — generate the static site in `out/`
+- Push to `main` to deploy through `.github/workflows/deploy-pages.yml`.
+
+The repository's GitHub Pages setting must use **GitHub Actions** as the build and deployment source.

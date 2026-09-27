@@ -1,6 +1,10 @@
 import { ArtworkGallery } from '@/components/gallery/ArtworkGallery';
+import { CloudinaryImage } from '@/components/media/CloudinaryImage';
 import { artworks } from '@/data/artworks';
 import { siteConfig } from '@/config/site';
+import { cloudinaryBrandAssets } from '@/lib/media';
+
+const aboutWidths = [320, 480, 640, 800];
 
 export default function HomePage() {
   const featuredArtwork = artworks.find((artwork) => artwork.featured) ?? artworks[0];
@@ -9,7 +13,7 @@ export default function HomePage() {
     <main>
       <header className="header">
         <a className="logo" href="#home" aria-label="Mini Mystic Palette home">
-          <img src="/images/logo.png" alt="Mini Mystic Palette" />
+          <CloudinaryImage asset={cloudinaryBrandAssets.logo} alt="Mini Mystic Palette" widths={[64, 128]} sizes="58px" />
         </a>
         <nav className="nav" aria-label="Main navigation">
           <a className="active" href="#home">Home</a>
@@ -64,8 +68,15 @@ export default function HomePage() {
           </div>
         </div>
         <div className="hero-image">
-          <img src={featuredArtwork.images[0]?.src || '/images/lantern-forest.jpg'} alt={featuredArtwork.images[0]?.alt || 'Featured artwork'} />
-          <span className="badge">FEATURED<br /><small>ORIGINAL</small></span>
+          <CloudinaryImage
+            asset={featuredArtwork.images[0]}
+            alt={featuredArtwork.images[0].alt}
+            widths={[480, 768, 1024, 1280]}
+            sizes="(max-width: 980px) 100vw, 45vw"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <span className="badge">ORIGINAL</span>
           <span className="scribble">dream a little</span>
         </div>
       </section>
@@ -87,12 +98,14 @@ export default function HomePage() {
       <section id="about" className="about">
         <div className="about-art">
           <div className="about-images">
-            {artworks.slice(0, 4).map((artwork) => (
-              <img
+            {artworks.slice(0, 4).map((artwork, index) => (
+              <CloudinaryImage
                 key={artwork.id}
-                className="about-image"
-                src={artwork.images[0]?.src || '/images/lantern-forest.jpg'}
-                alt={artwork.title}
+                asset={artwork.images[0]}
+                className={`about-image${index === 0 ? ' active' : ''}`}
+                alt={artwork.images[0].alt}
+                widths={aboutWidths}
+                sizes="(max-width: 980px) 100vw, 35vw"
               />
             ))}
           </div>
@@ -177,7 +190,7 @@ Art started as something I did simply because it made me happy. There was someth
       </section>
 
       <footer>
-        <img src="/images/logo.png" alt="Mini Mystic Palette" />
+        <CloudinaryImage asset={cloudinaryBrandAssets.logo} alt="Mini Mystic Palette" widths={[64, 128]} sizes="52px" />
         <span>© <b id="year">2026</b> Mini Mystic Palette</span>
         <span>Little worlds. Big feelings.</span>
       </footer>
