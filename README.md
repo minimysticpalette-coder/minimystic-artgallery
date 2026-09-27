@@ -1,22 +1,48 @@
 # Mini Mystic Palette
 
-Premium static artist portfolio for GitHub Pages.
+A static artist portfolio migrated to Next.js + TypeScript for maintainability, Cloudinary-ready media handling, and GitHub Pages deployment.
 
-## Included
-- `index.html`
-- `style.css`
-- `script.js`
-- `images/logo.png`
-- Four supplied artwork images
+## Tech stack
+- Next.js
+- TypeScript
+- React
+- ESLint
+- Prettier
+- GitHub Pages static export
+- Cloudinary-ready media configuration
 
-## Replace later
-Update the placeholder email, Instagram handle, About text, artwork titles/descriptions, and add additional images under `images/`.
+## Project structure
+- src/app — page entry points and app shell
+- src/components — reusable UI and gallery components
+- src/data — artwork data source
+- src/config — site configuration
+- src/lib — reusable media helpers
+- src/types — shared TypeScript interfaces
 
-## Add a new painting
-Copy an existing `<article class="card">` in `index.html`, change its image, title, description and category. The existing lightbox works automatically.
+## Local development
+1. Install dependencies: `npm install`
+2. Start the app: `npm run dev`
+3. View the site at `http://localhost:3000`
 
-## GitHub Pages
-Create a repository, upload everything, then go to:
-Settings → Pages → Deploy from a branch → `main` → `/ (root)` → Save.
+## Environment variables
+Create a `.env.local` file from `.env.example` and fill in values when ready.
 
-The website has no backend and can be hosted free on GitHub Pages.
+## Build
+- `npm run build`
+
+## Lint
+- `npm run lint`
+
+## Format
+- `npm run format`
+
+## Deployment
+This app is configured for static export and GitHub Pages.
+
+GitHub Actions deployment can be added by publishing the generated static output to the Pages branch or using GitHub Pages Actions.
+
+## Adding artwork
+Update `src/data/artworks.ts` with the artwork object. Add the current image path or placeholder and later replace it with Cloudinary public IDs.
+
+## Cloudinary
+Cloudinary is prepared as the media delivery layer, but real values should be added to environment variables after setup.
