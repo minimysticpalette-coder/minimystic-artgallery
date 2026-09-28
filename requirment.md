@@ -1,5 +1,7 @@
 Artwork Portfolio Website — Next.js + GitHub Pages + Cloudinary
 
+> Historical implementation brief. The GitHub Pages and static-export deployment requirements below are superseded by the current Vercel migration. Retain the design, media, accessibility, and maintainability goals; do not restore static export or the GitHub Pages deployment workflow.
+
 You are a senior frontend architect and Next.js developer.
 
 I have an existing artwork portfolio website built using HTML, CSS and JavaScript. The existing website/design should be treated as the primary visual and functional reference.
