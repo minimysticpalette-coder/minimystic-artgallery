@@ -18,14 +18,14 @@ PORT=${PORT:-3000}
 echo "Starting Mini Mystic Palette locally on port $PORT..."
 
 if ! command -v node >/dev/null 2>&1; then
-  echo "Node.js was not found in Git Bash. Install Node.js 20 or newer, then reopen Git Bash."
+  echo "Node.js was not found in Git Bash. Install Node.js 20.9 or newer, then reopen Git Bash."
   exit 1
 fi
 
-NODE_VERSION=$(node -p "process.versions.node.split('.')[0]")
-if [ "$NODE_VERSION" -lt 20 ]; then
-  echo "This project requires Node.js 20 or newer. Git Bash found $(node -v)."
-  echo "Install Node.js 20 or newer, then reopen Git Bash."
+NODE_VERSION=$(node -p "process.versions.node")
+if ! node -e "const [major, minor] = process.versions.node.split('.').map(Number); process.exit(major > 20 || (major === 20 && minor >= 9) ? 0 : 1)"; then
+  echo "This project requires Node.js 20.9 or newer. Git Bash found v$NODE_VERSION."
+  echo "Install Node.js 20.9 or newer, then reopen Git Bash."
   exit 1
 fi
 

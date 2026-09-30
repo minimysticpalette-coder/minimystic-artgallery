@@ -1,10 +1,10 @@
 # Mini Mystic Palette
 
-A single-page artist portfolio built with Next.js and TypeScript, statically exported for GitHub Pages, with artwork and brand images delivered through Cloudinary.
+A single-page artist portfolio built with Next.js and TypeScript, with artwork and brand images delivered through Cloudinary.
 
 ## Local development
 
-Requires Node.js 20 or newer.
+Requires Node.js 20.9 or newer.
 
 1. Copy `.env.example` to `.env.local` if you need to override the public configuration.
 2. Install dependencies with `npm install`.
@@ -22,9 +22,9 @@ Requires Node.js 20 or newer.
 
 ## Environment variables
 
-`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` is the public Cloudinary cloud name used to form delivery URLs. It is not an API secret. The current value is `oleopm7s`. Never add the Cloudinary API secret to this static frontend.
+`NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` is the public Cloudinary cloud name used to form delivery URLs. It is not an API secret. The current value is `oleopm7s` and is also the code fallback. Never add the Cloudinary API secret to the frontend.
 
-`NEXT_PUBLIC_BASE_PATH` is empty for local development. The GitHub Pages workflow sets it to `/minimystic-artgallery` for the repository site.
+`NEXT_PUBLIC_SITE_URL` is the canonical site origin used for metadata. Set it to the production domain in Vercel; locally it defaults to `http://localhost:3000`.
 
 ## Add artwork
 
@@ -49,7 +49,11 @@ The Ganesha hero video is listed with the artwork data. The page loads only its 
 ## Checks and deployment
 
 - `npm run lint` — lint the application
-- `npm run build` — generate the static site in `out/`
-- Push to `main` to deploy through `.github/workflows/deploy-pages.yml`.
+- `npm run build` — create the production Next.js build
+- `npm start` — start the production server after a successful build
 
-The repository's GitHub Pages setting must use **GitHub Actions** as the build and deployment source.
+## Vercel deployment
+
+Import the GitHub repository into Vercel and keep the detected **Next.js** framework preset. Use the repository root, the default install/build settings (`npm install`/`npm run build`), and leave the output directory unset. Select Node.js 22.x, or another supported version at least 20.9.0. Vercel's Git integration creates preview deployments for branches and deploys the configured production branch; no custom deployment workflow or `out/` artifact is needed.
+
+In Vercel Project Settings → Environment Variables, set `NEXT_PUBLIC_SITE_URL` to the canonical production origin and `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` if overriding the existing fallback. Apply the site URL to Preview deployments too, choosing whether previews should use the production canonical URL. These are public values; do not put secrets in `NEXT_PUBLIC_*` variables.
