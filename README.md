@@ -16,9 +16,16 @@ Requires Node.js 20.9 or newer.
 - `src/app` — page entry points, metadata, and global styles
 - `src/components` — reusable presentation components
 - `src/data/artworks.ts` — central artwork list
+- `src/domain/models.ts` — content and commerce domain types
 - `src/config` — site configuration
 - `src/lib/media.ts` — Cloudinary URL generation and shared brand asset IDs
-- `src/types` — shared TypeScript models
+- `src/types/artwork.ts` — compatibility exports for artwork types
+
+## Domain models
+
+`Artwork` remains the content model used by `src/data/artworks.ts`; that typed file remains the source of the existing gallery data. The model contains artwork identity, descriptions, media, and presentation metadata, but no price or inventory. When an artwork is offered for sale, a `PhysicalArtworkProduct` can reference its existing `Artwork.id` through `artworkId` and hold its own price, currency, SKU, category, and availability. Its optional name can override the artwork title when needed; otherwise, the linked artwork remains the source of that content. No product records or prices are defined for the current artworks.
+
+`Product` also supports workshop registrations linked by `workshopId` and custom commissions. Orders store product and price snapshots in their `OrderItem`s, while customer, commission request, payment, and workshop records have their own domain types. These are type definitions only; they do not add a database or change the current data source.
 
 ## Environment variables
 

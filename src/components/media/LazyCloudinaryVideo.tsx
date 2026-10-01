@@ -14,12 +14,13 @@ interface LazyCloudinaryVideoProps {
   video?: ArtworkVideo;
   poster: ArtworkImage;
   title: string;
+  autoStart?: boolean;
 }
 
 const posterWidths = [640, 960, 1280];
 
-export function LazyCloudinaryVideo({ video, poster, title }: LazyCloudinaryVideoProps) {
-  const [requested, setRequested] = useState(false);
+export function LazyCloudinaryVideo({ video, poster, title, autoStart = false }: LazyCloudinaryVideoProps) {
+  const [requested, setRequested] = useState(autoStart);
   const [failed, setFailed] = useState(false);
 
   if (!video) {
@@ -69,10 +70,11 @@ export function LazyCloudinaryVideo({ video, poster, title }: LazyCloudinaryVide
       {requested && !failed && (
         <video
           className="hero-video-player"
-          controls
           autoPlay
+          muted
+          loop={autoStart}
           playsInline
-          preload="none"
+          preload={autoStart ? 'auto' : 'none'}
           poster={posterUrl}
           onError={() => setFailed(true)}
           onEnded={() => setRequested(false)}

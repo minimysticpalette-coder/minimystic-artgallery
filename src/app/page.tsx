@@ -41,6 +41,7 @@ export default function HomePage() {
             video={featuredArtwork.videos?.[0]}
             poster={featuredImage}
             title={featuredArtwork.title}
+            autoStart
           />
         </div>
       </section>

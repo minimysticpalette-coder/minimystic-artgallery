@@ -350,10 +350,6 @@ body.dark-mode .brush.light {
   max-width: 400px;
   aspect-ratio: 5 / 7;
   margin-left: auto;
-  border-radius: 32px;
-  overflow: hidden;
-  box-shadow: var(--artwork-shadow);
-  background: var(--paper);
 }
 .hero-image img {
   width: 100%;
@@ -364,13 +360,14 @@ body.dark-mode .brush.light {
 .hero-video-poster,
 .hero-video-player {
   position: absolute;
-  inset: 5%;
-  width: 90%;
-  height: 90%;
-  background: var(--paper);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  background: transparent;
 }
 .hero-video-poster { object-fit: contain; }
-.hero-image img.hero-video-poster { width: 90%; height: 90%; }
+.hero-image img.hero-video-poster { width: 100%; height: 100%; }
 .hero-video-player { display: block; object-fit: contain; }
 .hero-video-play {
   position: absolute;
@@ -407,6 +404,7 @@ body.dark-mode .hero-video-play:hover { background: rgba(36, 58, 53, 0.98); }
   justify-items: center;
   gap: 0.75rem;
   padding: 2rem;
+  border-radius: 24px;
   background: var(--paper);
   color: var(--ink);
   text-align: center;
